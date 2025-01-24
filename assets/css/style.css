@@ -1,0 +1,134 @@
+/* Global Styles */
+:root {
+  --background-color: #e0e0e0;
+  --font-family: Arial, Helvetica, sans-serif;
+  --font-size: 16px;
+  --font-weight: 100;
+  --device-width: 320px;
+  --device-height: 667px;
+  --device-border-color: black;
+  --device-border-radius: 36px;
+  --device-background-color: white;
+  --screen-gradient: linear-gradient(to bottom, #7776A2, #A084AA, #D997B3, #FBBEC6);
+  --section-padding: 1.5rem;
+  --section-color: rgba(255, 255, 255, 0.8);
+  --button-width: 180px;
+  --button-height: 180px;
+  --button-margin: 3rem auto;
+  --button-padding: 2rem;
+  --button-background: rgba(255, 255, 255, 0.8);
+  --button-border-radius: 50%;
+  --button-cursor: pointer;
+  --heading-font-weight: 100;
+  --h1-font-size: 1rem;
+  --h1-margin-block-end: 0.5rem;
+  --h2-font-size: 2.5rem;
+  --h2-line-height: 85%;
+  --location-rating-gap: 0.5rem;
+  --button-text-font-weight: 800;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: var(--background-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+}
+
+/* Device Container */
+.device {
+  width: var(--device-width);
+  height: var(--device-height);
+  border: 16px solid var(--device-border-color);
+  border-top-width: 60px;
+  border-bottom-width: 60px;
+  border-radius: var(--device-border-radius);
+  background-color: var(--device-background-color);
+  position: relative;
+}
+
+/* Screen */
+.device-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--screen-gradient);
+  overflow: hidden;
+}
+
+/* Section */
+.device section {
+  padding: var(--section-padding);
+  color: var(--section-color);
+}
+
+/* Button */
+.device button {
+  width: var(--button-width);
+  height: var(--button-height);
+  margin: var(--button-margin);
+  padding: var(--button-padding);
+  display: block;
+  appearance: none;
+  border-radius: var(--button-border-radius);
+  background: var(--button-background);
+  mix-blend-mode: overlay;
+  border: none;
+  cursor: var(--button-cursor);
+}
+
+/* Headings */
+.device h1 {
+  font-size: var(--h1-font-size);
+  margin-block-end: var(--h1-margin-block-end);
+}
+
+.device h2 {
+  font-size: var(--h2-font-size);
+  line-height: var(--h2-line-height);
+}
+
+.device h1,
+.device h2,
+.device h3,
+.device h4,
+.device h5,
+.device h6 {
+  font-weight: var(--heading-font-weight);
+}
+
+/* Rating */
+.device .location-rating {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--location-rating-gap);
+}
+
+/* Button Text */
+.device .button-text {
+  font-weight: var(--button-text-font-weight);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* Loading Screen */
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

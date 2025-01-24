@@ -5,23 +5,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iPhone Screen Section</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-  <div class="iphone">
-    <div class="screen">
-      <section>
-        <header>
-          <h1 data-slide>Milwaukee, WI</h1>
-          <div class="rating" data-slide>
-            <h2>Very Good</h2>
-            <small>7.5/10</small>
+  <div class="device">
+    <div class="device-screen">
+      <section class="location-info button-screen">
+        <header class="location-header">
+          <h1 data-slide class="location-name">Milwaukee, WI</h1>
+          <div class="location-rating" data-slide>
+            <h2 class="rating-text">Very Good</h2>
+            <small class="rating-score">7.5/10</small>
           </div>
         </header>
-        <button>
+        <button id="view-button" class="view-button">
           <span data-slide class="button-text">View the best sunset</span>
         </button>
+      </section>
+      <section class="loading-screen" style="display:none">
+        Loading...
+      </section>
+      <section class="results-screen" style="display:none">
+        <h1>Milwaukee, WI</h1>
+        <h2 data-best-sunset-time></h2>
+        <small>Recommended sunset time</small><br />
+        <small data-forecast></small>
       </section>
     </div>
   </div>
@@ -30,6 +39,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
   integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="assets/scripts.js"></script>
+<script src="assets/js/animations.js"></script>
+<script src="assets/js/algo.js"></script>
 
 </html>
