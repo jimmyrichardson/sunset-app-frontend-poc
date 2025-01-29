@@ -14,7 +14,13 @@ button.addEventListener('click', async () => {
   const url = `https://vmb9debil6.execute-api.us-east-2.amazonaws.com/sunset-app-staging/get-location?lat=${lat}&lon=${lon}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ lat, lon })
+    });
     const data = await response.json();
 
     screen2.style.display = 'none';
