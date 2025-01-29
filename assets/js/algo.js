@@ -9,34 +9,53 @@ button.addEventListener('click', async () => {
   screen1.style.display = 'none';
   screen2.style.display = 'block';
 
-  const lat = 43.0879869;
-  const lon = -87.8922292;
-  const url = `https://vmb9debil6.execute-api.us-east-2.amazonaws.com/sunset-app-staging/get-location?lat=${lat}&lon=${lon}`;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ lat, lon })
+      if (lat && lon) {
+        const url = `https://vmb9debil6.execute-api.us-east-2.amazonaws.com/sunset-app-staging/get-location?lat=${lat}&lon=${lon}`;
+
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ lat, lon })
+          });
+          const data = await response.json();
+
+          screen2.style.display = 'none';
+          screen3.style.display = 'block';
+
+          const resultsContainer = screen3.querySelector('#results-content');
+          resultsContainer.innerHTML = `
+            <h3>Sunset Location: ${data.name}</h3><br />
+            <p>Clouds: ${data.openWeather.clouds}%</p>
+            <p>Visibility: ${data.openWeather.visibility} meters</p>
+            <p>Sunset Time: ${new Date(data.openWeather.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+            <p>Conditions: ${data.conditions}</p>
+            `;
+        } catch (error) {
+          console.error('Error fetching sunset location:', error);
+          screen2.style.display = 'none';
+          screen1.style.display = 'block';
+          alert('Failed to fetch sunset location. Please try again.');
+        }
+      } else {
+        alert('Latitude and Longitude are required to fetch the sunset location.');
+        screen2.style.display = 'none';
+        screen1.style.display = 'block';
+      }
+    }, error => {
+      console.error('Error getting location:', error);
+      alert('Failed to get your location. Please enter it manually.');
     });
-    const data = await response.json();
-
-    screen2.style.display = 'none';
-    screen3.style.display = 'block';
-
-    const resultsContainer = screen3.querySelector('.results-container');
-    resultsContainer.innerHTML = `
-      <h2>Sunset Location</h2>
-      <p>Latitude: ${data.latitude}</p>
-      <p>Longitude: ${data.longitude}</p>
-      <p>Sunset Time: ${data.sunsetTime}</p>
-    `;
-  } catch (error) {
-    console.error('Error fetching sunset location:', error);
+  } else {
+    alert('Latitude and Longitude are required to fetch the sunset location.');
     screen2.style.display = 'none';
     screen1.style.display = 'block';
-    alert('Failed to fetch sunset location. Please try again.');
   }
 });
