@@ -31,10 +31,23 @@ button.addEventListener('click', async () => {
           screen3.style.display = 'block';
 
           const resultsContainer = screen3.querySelector('#results-content');
+
+          var ranking;
+
+          if (data.score < 4) {
+            ranking = 'Poor';
+          } else if (data.score >= 4 && data.score <= 7) {
+            ranking = 'Fair';
+          } else if (data.score >= 8 && data.score <= 10) {
+            ranking = 'Very Good';
+          } else {
+            ranking = 'Unknown';
+          }
+
           resultsContainer.innerHTML = `
-            <h3>Sunset Location: ${data.name}</h3><br />
-            <p>Clouds: ${data.openWeather.clouds}%</p>
-            <p>Visibility: ${data.openWeather.visibility} meters</p>
+            <h1>${data.name}</h1>
+            <p style="font-size:350%">${data.score}</p>
+            <p>Your sunset score (${ranking})</p>
             <p>Sunset Time: ${new Date(data.openWeather.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
             <p>Conditions: ${data.conditions}</p>
             `;
