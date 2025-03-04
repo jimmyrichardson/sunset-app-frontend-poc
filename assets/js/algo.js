@@ -16,6 +16,7 @@ button.addEventListener('click', async () => {
 
       if (lat && lon) {
         const url = `https://vmb9debil6.execute-api.us-east-2.amazonaws.com/sunset-app-staging/get-location?lat=${lat}&lon=${lon}`;
+        const placesUrl = `https://vmb9debil6.execute-api.us-east-2.amazonaws.com/sunset-app-staging/get-google-places?lat=${lat}&lon=${lon}`;
 
         try {
           const response = await fetch(url, {
@@ -26,6 +27,15 @@ button.addEventListener('click', async () => {
             body: JSON.stringify({ lat, lon })
           });
           const data = await response.json();
+
+          const placesResponse = await fetch(placesUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ lat, lon })
+          });
+          const placesData = await placesResponse.json();
 
           screen2.style.display = 'none';
           screen3.style.display = 'block';
@@ -49,7 +59,11 @@ button.addEventListener('click', async () => {
             <p style="font-size:350%">${data.score}</p>
             <p>Your sunset score (${ranking})</p>
             <p>Sunset Time: ${new Date(data.openWeather.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-            <p>Conditions: ${data.conditions}</p>
+            <p>Conditions: ${data.conditions}</p><br />
+            <h3>Nearby Places:</h3>
+            <ul>
+              ${placesData.places.map(place => `<li>${place.name} - ${place.rating}</li>`).join('')}
+            </ul>
             `;
         } catch (error) {
           console.error('Error fetching sunset location:', error);
